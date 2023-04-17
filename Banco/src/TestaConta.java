@@ -1,7 +1,18 @@
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
+
 public class TestaConta {
+    static ContaCorrente cc1 = new ContaCorrente(22, 77, "Bradesco", 10000.00, 2000.00);
+    static ContaPoupanca cp1 = new ContaPoupanca(11, 181, "Santander", 10000.00, 22, 0.1);
+    static ContaSalario cs1 = new ContaSalario(32, 12, "Itaú", 10000.00, 5000.00);
+    static double saqueCc = 0;
+    static double depositoCc = 0;
+    static double saqueCp = 0;
+    static double depositoCp = 0;
+    static double saqueCs = 0;
+    static double depositoCs = 0;
+    static double saldoCc = 0;
+    static double saldoCp = 0;
+    static double saldoCs = 0;
     public static void main(String[] args) throws Exception {
        Scanner scanner = new Scanner(System.in);
         int opcao = 0;
@@ -22,17 +33,6 @@ public class TestaConta {
         } while (opcao != 0);
     }
     public static void menu(int opcao) throws Exception {
-        ContaCorrente cc1 = new ContaCorrente(22, 77, "Bradesco", 10000.00, 2000.00);
-        ContaPoupanca cp1 = new ContaPoupanca(11, 181, "Santander", 10000.00, 22, 0.1);
-        ContaSalario cs1 = new ContaSalario(32, 12, "Itaú", 10000.00, 5000.00);
-        List<Double> saquesCc = new ArrayList<>();
-        List<Double> depositosCc = new ArrayList<>();
-        List<Double> saquesCp = new ArrayList<>();
-        List<Double> depositosCp = new ArrayList<>();
-        List<Double> saquesCs = new ArrayList<>();
-        List<Double> depositosCs = new ArrayList<>();
-        double saque;
-        double deposito = 0;
         int limite = 0;
         int N;
         String resposta = null;
@@ -45,31 +45,32 @@ public class TestaConta {
                 N = Integer.parseInt(scanner.next());
                 if (N == 1) {
                     System.out.print("Digite a quantia a ser sacada: ");
-                    saque = Double.parseDouble(scanner.next());
-                    saquesCc.add(saque);
+                    double saque = Double.parseDouble(scanner.next());
+                    saqueCc = saqueCc + saque;
                     System.out.println("R$" + saque + " sacados com sucesso.");
                     limite = limite + 1;
                     do {
                         System.out.println("Deseja sacar novamente?(s/n) ");
                         resposta = scanner.next();
-                        if (resposta == "s") {
+                        if (resposta.equals("s")) {
                             System.out.print("Digite a quantia a ser sacada: ");
                             saque = Double.parseDouble(scanner.next());
-                            saquesCc.add(saque);
+                            saqueCc = saqueCc + saque;
                             System.out.println("R$" + saque + " sacados com sucesso.");
                             limite = limite + 1;
                         }
-                    } while (resposta != "n" || limite == 3);
+                    } while (!resposta.equals("n") || limite == 3);
                     if (limite == 3) {
                         System.out.println("Limite de saques atingido!");
                     }
                 }
                 if (N == 2) {
                     System.out.print("Digite a quantia a ser depositada: ");
-                    deposito = Double.parseDouble(scanner.next());
-                    depositosCc.add(deposito);
+                    double deposito = Double.parseDouble(scanner.next());
+                    depositoCc = depositoCc + deposito;
                     System.out.println("R$" + deposito + " depositados com sucesso.");
                 }
+                saldoCc = depositoCc - saqueCc;
                 break;
             case 2:
                 System.out.println("1 - Sacar");
@@ -78,31 +79,32 @@ public class TestaConta {
                 N = Integer.parseInt(scanner.next());
                 if (N == 1) {
                     System.out.print("Digite a quantia a ser sacada: ");
-                    saque = Double.parseDouble(scanner.next());
-                    saquesCp.add(saque);
+                    double saque = Double.parseDouble(scanner.next());
+                    saqueCp = saqueCp + saque;
                     System.out.println("R$" + saque + " sacados com sucesso.");
                     limite = limite + 1;
                     do {
                         System.out.println("Deseja sacar novamente?(s/n) ");
                         resposta = scanner.next();
-                        if (resposta == "s") {
+                        if (resposta.equals("s")) {
                             System.out.print("Digite a quantia a ser sacada: ");
                             saque = Double.parseDouble(scanner.next());
-                            saquesCp.add(saque);
+                            saqueCp = saqueCp + saque;
                             System.out.println("R$" + saque + " sacados com sucesso.");
                             limite = limite + 1;
                         }
-                    } while (resposta != "n" || limite == 3);
+                    } while (!resposta.equals("n") || limite == 3);
                     if (limite == 3) {
                         System.out.println("Limite de saques atingido!");
                     }
                 }
                 if (N == 2) {
                     System.out.print("Digite a quantia a ser depositada: ");
-                    deposito = Double.parseDouble(scanner.next());
-                    depositosCp.add(deposito);
+                    double deposito = Double.parseDouble(scanner.next());
+                    depositoCp = depositoCp + deposito;
                     System.out.println("R$" + deposito + " depositados com sucesso.");
                 }
+                saldoCp = depositoCp - saqueCp;
                 break;
             case 3:
                 System.out.println("1 - Sacar");
@@ -111,43 +113,47 @@ public class TestaConta {
                 N = Integer.parseInt(scanner.next());
                 if (N == 1) {
                     System.out.print("Digite a quantia a ser sacada: ");
-                    saque = Double.parseDouble(scanner.next());
-                    saquesCs.add(saque);
+                    double saque = Double.parseDouble(scanner.next());
+                    saqueCs = saqueCs + saque;
                     System.out.println("R$" + saque + " sacados com sucesso.");
                     limite = limite + 1;
                     do {
                         System.out.println("Deseja sacar novamente?(s/n) ");
                         resposta = scanner.next();
-                        if (resposta == "s") {
+                        if (resposta.equals("s")) {
                             System.out.print("Digite a quantia a ser sacada: ");
                             saque = Double.parseDouble(scanner.next());
-                            saquesCs.add(saque);
+                            saqueCs = saqueCs + saque;
                             System.out.println("R$" + saque + " sacados com sucesso.");
                             limite = limite + 1;
                         }
-                    } while (resposta != "n" || limite == 3);
+                    } while (!resposta.equals("n") || limite == 3);
                     if (limite == 3) {
                         System.out.println("Limite de saques atingido!");
                     }
                 }
                 if (N == 2) {
                     System.out.print("Digite a quantia a ser depositada: ");
-                    deposito = Double.parseDouble(scanner.next());
-                    depositosCs.add(deposito);
+                    double deposito = Double.parseDouble(scanner.next());
+                    depositoCs = depositoCs + deposito;
                     System.out.println("R$" + deposito + " depositados com sucesso.");
                 }
+                saldoCs = depositoCs - saqueCs;
                 break;
             case 4:
                 System.out.println("Saldo atual da Conta Corrente:");
-                System.out.println("R$" + cc1.getSaldo() + depositosCc.get(0) + - (saquesCc.get(0) + saquesCc.get(1) + saquesCc.get(2)));
+                System.out.println("R$" + cc1.getSaldo());
+                System.out.println("Extrato das operações realizadas anteriormente: " + saldoCc);
                 break;
             case 5:
                 System.out.println("Saldo atual da Conta Poupança:");
-                System.out.println("R$" + cp1.getSaldo() + depositosCp.get(0) + - (saquesCp.get(0) + saquesCp.get(1) + saquesCp.get(2)));
+                System.out.println("R$" + cp1.getSaldo());
+                System.out.println("Extrato das operações realizadas anteriormente: " + saldoCp);
                 break;
             case 6:
                 System.out.println("Saldo atual da Conta Salário:");
-                System.out.println("R$" + cs1.getSaldo() + depositosCs.get(0) + - (saquesCs.get(0) + saquesCs.get(1) + saquesCs.get(2)));
+                System.out.println("R$" + cs1.getSaldo());
+                System.out.println("Extrato das operações realizadas anteriormente: " + saldoCs);
                 break;
             case 0:
                 System.out.println("Operações encerradas!");
@@ -158,3 +164,4 @@ public class TestaConta {
         }
     }
 }
+
